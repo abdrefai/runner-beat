@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: SplashScreen(
         title: const Text(
-          'Welcome to kafu Box ',
+          'Welcome to Runner Beat ',
           style: TextStyle(
               fontSize: 18,
               color: Colors.white
