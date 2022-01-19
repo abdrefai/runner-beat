@@ -13,7 +13,7 @@ class _homeState extends State<home> {
 
   double xOffset = 0;
   double yOffset = 0;
-  Icon drawerIcon =  Icon(Icons.menu) ;
+  Icon drawerIcon =  Icon(Icons.menu,size: 30,color: Colors.grey,) ;
 
 
   bool isDrawerOpen = false ;
@@ -45,7 +45,7 @@ class _homeState extends State<home> {
                                 xOffset = 280;
                                 yOffset = 80;
                                 isDrawerOpen = true;
-                                drawerIcon = Icon(Icons.arrow_forward_outlined,size: 30);
+                                drawerIcon = Icon(Icons.arrow_back_outlined,size: 30,color: Colors.grey,);
                                 });
                             }
                             else
@@ -53,7 +53,7 @@ class _homeState extends State<home> {
                                 xOffset = 0;
                                 yOffset = 0;
                                 isDrawerOpen = false;
-                                drawerIcon = Icon(Icons.menu,size: 30);
+                                drawerIcon = Icon(Icons.menu,size: 30,color: Colors.grey,);
 
                               });
 
@@ -68,7 +68,7 @@ class _homeState extends State<home> {
 
                   ),
                   actions: [
-                    IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 30,))
+                    IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 30,color: Colors.grey,))
                   ],
                   centerTitle: true,
 
@@ -85,8 +85,8 @@ class _homeState extends State<home> {
                       children: [
                         TabBar(
                           labelColor: Color.fromRGBO(3, 152, 158, 1),
-                          unselectedLabelColor: Colors.white,
-                          indicatorColor: Colors.white,
+                          unselectedLabelColor: Colors.grey,
+                          indicatorColor: Colors.grey,
                           indicatorWeight: 1.5,
                           tabs: [
 
@@ -125,14 +125,15 @@ class _homeState extends State<home> {
                                               style: TextStyle(color: Colors.white),
 
                                             ),
+                                            SizedBox(width: 40,),
                                             Icon(
                                               Icons.edit,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               size: 24,
                                             ),
                                             Icon(
                                               Icons.play_circle_fill,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               size: 24,
                                             ),
                                           ],
@@ -154,17 +155,17 @@ class _homeState extends State<home> {
                                               style: TextStyle(color: Colors.white),
 
                                             ),
+                                            SizedBox(width: 40,),
                                             Icon(
                                               Icons.edit,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               size: 24,
                                             ),
                                             Icon(
                                               Icons.play_circle_fill,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               size: 24,
                                             ),
-
                                           ],
                                         ),
                                       ),
@@ -195,14 +196,15 @@ class _homeState extends State<home> {
                                               style: TextStyle(color: Colors.white),
 
                                             ),
+                                            SizedBox(width: 40,),
                                             Icon(
                                               Icons.edit,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               size: 24,
                                             ),
                                             Icon(
                                               Icons.play_circle_fill,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               size: 24,
                                             ),
                                           ],
@@ -221,16 +223,18 @@ class _homeState extends State<home> {
                                             ),
                                             Text(
                                               'Hello World',
-                                                style: TextStyle(color: Colors.white),
+                                              style: TextStyle(color: Colors.white),
+
                                             ),
+                                            SizedBox(width: 40,),
                                             Icon(
                                               Icons.edit,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               size: 24,
                                             ),
                                             Icon(
                                               Icons.play_circle_fill,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               size: 24,
                                             ),
                                           ],

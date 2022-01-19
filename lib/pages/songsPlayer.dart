@@ -18,8 +18,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
         },
         child: Icon(
           Icons.chevron_left_rounded,
-          color: Colors.white,
-          size: 24,
+          color: Colors.grey,
+          size: 30,
         ),
       ),
       title: Text(
@@ -27,7 +27,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
       ),
       actions: [
-        IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 30,))
+        IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 30,color: Colors.grey,))
       ],
         backgroundColor: Color.fromRGBO(39, 36, 53, 1),
       centerTitle: true,
@@ -96,8 +96,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IconButton(onPressed: (){}, icon: Icon(Icons.remove_circle,size: 30,color: Colors.white,)),
-                IconButton(onPressed: (){}, icon: Icon(Icons.add_circle,size: 30,color: Colors.white))
+                IconButton(onPressed: (){}, icon: Icon(Icons.remove_circle,size: 30,color: Colors.grey,)),
+                IconButton(onPressed: (){}, icon: Icon(Icons.add_circle,size: 30,color: Colors.grey))
               ],
             ),
             Row(

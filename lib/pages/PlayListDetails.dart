@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 class PlayListScreen extends StatefulWidget {
@@ -19,8 +20,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: Color(0xFF8B97A2),
-            size: 24,
+            color: Colors.grey,
+            size: 30,
           ),
         ),
         title: Text(
@@ -28,7 +29,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
 
         ),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 30,))
+          IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 30,color: Colors.grey,))
         ],
         backgroundColor: Color.fromRGBO(39, 36, 53, 1),
 
@@ -48,10 +49,10 @@ class _PlayListScreenState extends State<PlayListScreen> {
 
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(70, 0, 10, 0),
                   child: Container(
                     width: 120,
                     height: 120,
@@ -59,25 +60,53 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                     ),
-                    child: Image.network(
-                      'https://picsum.photos/seed/318/600',
+                    child: Image.asset(
+                      'assets/images/logo.png',
                     ),
                   ),
                 ),
-                SizedBox(width:25),
+                SizedBox(width:15),
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      'Hello World',
-                      style: TextStyle(color: Colors.white),
+                      'Latest Songs',
+                      style: TextStyle(color: Colors.white,fontSize: 20),
 
                     ),
+                    SizedBox(height: 5,),
                     Text(
-                      'Hello World',
-                      style: TextStyle(color: Colors.white),
+                      '24 Track',
+                      style: TextStyle(color: Colors.grey),
 
                     ),
+                    SizedBox(height: 10,),
+                    Container(
+                     width: 110,
+                     height: 40,
+                     decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+
+                        border: Border.all(
+                          color: Color.fromRGBO(3, 152, 158, 1),
+                          width: 2
+                        ),
+                       color: Colors.transparent
+                     ),
+
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(onPressed: (){}, icon: Icon(Icons.play_circle_outline,size: 20,color: Colors.grey)),
+                          Text(
+                            'Play All',
+                            style: TextStyle(color: Colors.white),
+
+                          ),
+                        ],
+                      ),
+                    )
 
                   ],
                 ),
@@ -94,13 +123,14 @@ class _PlayListScreenState extends State<PlayListScreen> {
                 scrollDirection: Axis.vertical,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(30, 15, 30, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(25, 0, 20, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        IconButton(onPressed: (){}, icon: Icon(Icons.play_circle_outline,size: 30,color: Colors.grey)),
                         Container(
-                          width: MediaQuery.of(context).size.width*0.6,
+                          width: MediaQuery.of(context).size.width*0.5,
                           child: Text(
                             'Hello World',
                             style: TextStyle(color: Colors.white),
@@ -109,14 +139,14 @@ class _PlayListScreenState extends State<PlayListScreen> {
                         ),
 
                         Icon(
-                          Icons.edit,
-                          color: Colors.white,
+                          Icons.add_circle,
+                          color: Colors.grey,
                           size: 24,
                         ),
                         SizedBox(width: 20,),
                         Icon(
-                          Icons.play_circle_fill,
-                          color: Colors.white,
+                          Icons.remove_circle,
+                          color: Colors.grey,
                           size: 24,
                         ),
                         SizedBox(width: 20,),
@@ -129,32 +159,38 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(25, 0, 20, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        IconButton(onPressed: (){}, icon: Icon(Icons.play_circle_outline,size: 30,color: Colors.grey)),
+                        Container(
+                          width: MediaQuery.of(context).size.width*0.5,
+                          child: Text(
+                            'Hello World',
+                            style: TextStyle(color: Colors.white),
+
+                          ),
+                        ),
+
+                        Icon(
+                          Icons.add_circle,
+                          color: Colors.grey,
+                          size: 24,
+                        ),
+                        SizedBox(width: 20,),
+                        Icon(
+                          Icons.remove_circle,
+                          color: Colors.grey,
+                          size: 24,
+                        ),
+                        SizedBox(width: 20,),
                         Text(
-                          'Hello World',
+                          '20:20',
                           style: TextStyle(color: Colors.white),
 
                         ),
-                        Text(
-                          'Hello World',
-                          style: TextStyle(color: Colors.white),
-
-                        ),
-                        Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                        Icon(
-                          Icons.play_circle_fill,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-
                       ],
                     ),
                   ),
