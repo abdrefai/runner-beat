@@ -167,6 +167,7 @@ class _OnBoardingState extends State<OnBoarding> {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 20,
+        color: Colors.grey
       ),
       textAlign: TextAlign.center,
     );
@@ -174,7 +175,7 @@ class _OnBoardingState extends State<OnBoarding> {
 
   _displayImage(int path) {
     return Image.asset(
-      "assets/$path.png",
+      "assets/images/$path.png",
       height: MediaQuery.of(context).size.height * .5,
     );
   }

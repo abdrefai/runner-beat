@@ -15,7 +15,7 @@ class _DrawerState extends State<DrawerPage> {
     return Material(
       child: Container(
         alignment: Alignment.topLeft,
-        color:Color.fromRGBO(39, 36, 53, 0.97),
+        color:Color.fromRGBO(39, 36, 53, 0.99 ),
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Column(
@@ -100,7 +100,6 @@ class _DrawerState extends State<DrawerPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("test",style: TextStyle(fontSize: 20,color: Colors.white),),
                       SizedBox(width: 10),
                    /*   ElevatedButton(
 
@@ -140,7 +139,7 @@ class _DrawerState extends State<DrawerPage> {
                   ),
                 ),
               ),
-              Divider(),
+
               SizedBox(height: 10,),
             /*  GestureDetector(
                 onTap: () async{
@@ -163,7 +162,7 @@ class _DrawerState extends State<DrawerPage> {
                   ],
                 ),
               ),*/
-              Divider(),
+
 
             ],
           ),

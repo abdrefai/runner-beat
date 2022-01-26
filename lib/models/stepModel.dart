@@ -11,12 +11,12 @@ class StepModel {
       text: "Browse the menu\nand order directly from\nthe application",
     ),
     StepModel(
-      id: 2,
+      id: 1,
       text:
       "Your order will be\nimmediately collected and\nsent by our courier",
     ),
     StepModel(
-      id: 3,
+      id: 1,
       text: "Pick update delivery\nat your door and enjoy\ngroceries",
     ),
   ];

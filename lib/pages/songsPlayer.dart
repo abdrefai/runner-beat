@@ -40,7 +40,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 50),
+              padding: EdgeInsetsDirectional.fromSTEB(60, 0, 0, 50),
               child: Container(
                 width: MediaQuery.of(context).size.width*0.5,
                 height: MediaQuery.of(context).size.width*0.5,
@@ -48,8 +48,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                 ),
-                child: Image.network(
-                  'https://picsum.photos/seed/318/600',
+                child: Image.asset(
+                  'assets/images/playoff.png',
                 ),
               ),
             ),

@@ -1,6 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:runner_beat/models/Playlist.dart';
+import 'package:runner_beat/models/exercise.dart';
 
 import 'package:runner_beat/pages/drawerPage.dart';
+import 'package:runner_beat/service/dataBaseHelper.dart';
 
 class home extends StatefulWidget {
   @override
@@ -21,8 +25,139 @@ class _homeState extends State<home> {
   int currentTab = 0 ;
 
 
+  late Future<List<PlayListModel>> _playlistData;
+
+  late Future<List<ExerciseModel>> _ExerciseData;
+
+  @override
+  void initState(){
+     super.initState();
+     _updatePlaylistData();
+     _updateExerciseData();
+  }
+
+  _updatePlaylistData(){
+    _playlistData =DatabaseConnection.instance.getPlayList();
+  }
+
+  _updateExerciseData(){
+    _ExerciseData =DatabaseConnection.instance.getExercise();
+  }
+
+  Widget PlayListForm(PlayListModel playListModel){
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width*0.5,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width*0.5,
+                  child: AutoSizeText(
+                    playListModel.name!,
+                    minFontSize: 22,
+                    maxFontSize: 25,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+
+              ],
+            ),
+          ),
 
 
+          Container(
+            width: MediaQuery.of(context).size.width*0.3,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                AutoSizeText(
+                  '00:00',
+                  style: TextStyle(color: Colors.white),
+
+                ),
+                Icon(
+                  Icons.edit,
+                  color: Colors.grey,
+                  size: 24,
+                ),
+                Icon(
+                  Icons.play_circle_fill,
+                  color: Colors.grey,
+                  size: 24,
+                ),
+              ],
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+  Widget ExerciseForm(ExerciseModel exerciseModel){
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width*0.5,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width*0.5,
+                  child: AutoSizeText(
+                    exerciseModel.name!,
+                    minFontSize: 22,
+                    maxFontSize: 25,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+
+
+          Container(
+            width: MediaQuery.of(context).size.width*0.3,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                AutoSizeText(
+                  '00:00',
+                  style: TextStyle(color: Colors.white),
+
+                ),
+                Icon(
+                  Icons.edit,
+                  color: Colors.grey,
+                  size: 24,
+                ),
+                Icon(
+                  Icons.play_circle_fill,
+                  color: Colors.grey,
+                  size: 24,
+                ),
+              ],
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return  Stack(
@@ -68,7 +203,19 @@ class _homeState extends State<home> {
 
                   ),
                   actions: [
-                    IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 30,color: Colors.grey,))
+                   // IconButton(onPressed: (){}, icon: Icon(Icons.add,size: 30,color: Colors.grey,))
+                    PopupMenuButton<int>(color: Color.fromRGBO(39, 36, 53, 1),itemBuilder: (context)=>[
+                       PopupMenuItem<int>(
+                           value: 0,
+                           child: Text('add playlist', style: TextStyle(color: Colors.white))
+                       ),
+                      PopupMenuItem<int>(
+                          value: 1,
+                          child: Text('add Exercise', style: TextStyle(color: Colors.white))
+                      )
+                    ],
+                      onSelected: (item)=>SelectedItem(context,item),
+                    )
                   ],
                   centerTitle: true,
 
@@ -91,10 +238,10 @@ class _homeState extends State<home> {
                           tabs: [
 
                             Tab(
-                              text: 'My PlayLists',
+                              child: Text('My playlists',style: TextStyle(fontSize: 20)),
                             ),
                             Tab(
-                              text: 'My Exercises',
+                              child: Text('My Exercise',style: TextStyle(fontSize: 20)),
                             )
                           ],
                         ),
@@ -102,147 +249,47 @@ class _homeState extends State<home> {
                           child: TabBarView(
                             children: [
 
-                              Expanded(
-                                child: Padding(
+                              FutureBuilder(
+                                future: _playlistData,
+                                builder: (context ,AsyncSnapshot snapshot ){
+                                  if(!snapshot.hasData){
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                return Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: ListView(
+                                  child: ListView.builder(
+                                    itemCount: int.parse(snapshot.data!.length.toString()),
+                                    itemBuilder: (BuildContext context,int index){
+                                        return PlayListForm(snapshot.data[index]);
+                                    },
                                     padding: EdgeInsets.zero,
                                     scrollDirection: Axis.vertical,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'Hello World',
-                                              style: TextStyle(color: Colors.white),
-
-                                            ),
-                                            Text(
-                                              'Hello World',
-                                              style: TextStyle(color: Colors.white),
-
-                                            ),
-                                            SizedBox(width: 40,),
-                                            Icon(
-                                              Icons.edit,
-                                              color: Colors.grey,
-                                              size: 24,
-                                            ),
-                                            Icon(
-                                              Icons.play_circle_fill,
-                                              color: Colors.grey,
-                                              size: 24,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'Hello World',
-                                              style: TextStyle(color: Colors.white),
-
-                                            ),
-                                            Text(
-                                              'Hello World',
-                                              style: TextStyle(color: Colors.white),
-
-                                            ),
-                                            SizedBox(width: 40,),
-                                            Icon(
-                                              Icons.edit,
-                                              color: Colors.grey,
-                                              size: 24,
-                                            ),
-                                            Icon(
-                                              Icons.play_circle_fill,
-                                              color: Colors.grey,
-                                              size: 24,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
                                   ),
-                                ),
+                                );
+                                },
                               ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ListView(
-                                    padding: EdgeInsets.zero,
-                                    scrollDirection: Axis.vertical,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'Hello World',
-                                              style: TextStyle(color: Colors.white),
-
-                                            ),
-                                            Text(
-                                              'Hello World',
-                                              style: TextStyle(color: Colors.white),
-
-                                            ),
-                                            SizedBox(width: 40,),
-                                            Icon(
-                                              Icons.edit,
-                                              color: Colors.grey,
-                                              size: 24,
-                                            ),
-                                            Icon(
-                                              Icons.play_circle_fill,
-                                              color: Colors.grey,
-                                              size: 24,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'Hello World',
-                                              style: TextStyle(color: Colors.white),
-
-                                            ),
-                                            Text(
-                                              'Hello World',
-                                              style: TextStyle(color: Colors.white),
-
-                                            ),
-                                            SizedBox(width: 40,),
-                                            Icon(
-                                              Icons.edit,
-                                              color: Colors.grey,
-                                              size: 24,
-                                            ),
-                                            Icon(
-                                              Icons.play_circle_fill,
-                                              color: Colors.grey,
-                                              size: 24,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              FutureBuilder(
+                                future: _ExerciseData,
+                                builder: (context ,AsyncSnapshot snapshot ){
+                                  if(!snapshot.hasData){
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListView.builder(
+                                      itemCount: int.parse(snapshot.data!.length.toString()),
+                                      itemBuilder: (BuildContext context,int index){
+                                        return ExerciseForm(snapshot.data[index]);
+                                      },
+                                      padding: EdgeInsets.zero,
+                                      scrollDirection: Axis.vertical,
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -258,5 +305,108 @@ class _homeState extends State<home> {
             ),
           ),
         ]);
+  }
+}
+var _playlistName = TextEditingController();
+var _exerciseName = TextEditingController();
+var _exerciseDesc = TextEditingController();
+
+
+var _playList = PlayListModel();
+var _exercise = ExerciseModel();
+
+_addplaylist(){
+  PlayListModel playListModel = PlayListModel(name: _playlistName.text);
+  DatabaseConnection.instance.insertPlaylist(playListModel);
+}
+
+_addexercise(){
+  ExerciseModel exerciseModel = ExerciseModel(name: _exerciseName.text,description: _exerciseDesc.text);
+  DatabaseConnection.instance.insertExercise(exerciseModel);
+}
+
+
+_showPlaylistDialog(BuildContext context){
+  return showDialog(context : context , barrierDismissible: true,builder: (param){
+    return AlertDialog(
+      actions: [
+        FlatButton(onPressed: (){
+          _playList.name = _playlistName.text;
+          _addplaylist();
+          _playlistName.text = "";
+          Navigator.pushReplacement(context,MaterialPageRoute(builder:
+              (BuildContext context) => home()
+          ));
+
+        }, child: Text(
+          "Add"
+        ))
+      ],
+      title: Text("Add Playlist"),
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            TextField(
+              controller: _playlistName,
+              decoration: InputDecoration(
+                hintText: "type the name here",
+                labelText: "Playlist Name"
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  });
+}
+_showExerciseDialog(BuildContext context){
+  return showDialog(context : context , barrierDismissible: true,builder: (param){
+    return AlertDialog(
+      actions: [
+        FlatButton(onPressed: (){
+          _exercise.name = _exerciseName.text;
+          _exercise.description = _exerciseDesc.text;
+          _addexercise();
+          _exerciseName.text= "";
+          _exerciseDesc.text= "";
+
+          Navigator.pushReplacement(context,MaterialPageRoute(builder:
+              (BuildContext context) => home()
+          ));
+        }, child: Text(
+            "Add"
+        ))
+      ],
+      title: Text("Add Exercise"),
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            TextField(
+              controller: _exerciseName,
+              decoration: InputDecoration(
+                  hintText: "type the name here",
+                  labelText: "Exercise Name"
+              ),
+            ),
+            TextField(
+              controller: _exerciseDesc,
+              decoration: InputDecoration(
+                  hintText: "type the name here",
+                  labelText: "Exercise Description"
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  });
+}
+SelectedItem(BuildContext context,  item) {
+  switch(item){
+    case 0:_showPlaylistDialog(context);
+    break;
+    case 1:_showExerciseDialog(context);
+    break;
+
   }
 }

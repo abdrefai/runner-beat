@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: SplashScreen(
+      home:OnBoarding() /*SplashScreen(
         title: const Text(
           'Welcome to Runner Beat ',
           style: TextStyle(
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Color.fromRGBO(39, 36, 53, 1),
         loaderColor: Color.fromRGBO(3, 152, 158, 1),
         navigateAfterFuture: loadFromFuture(),
-      )
+      )*/
       );
 
   }
