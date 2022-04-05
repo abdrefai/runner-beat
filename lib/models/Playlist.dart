@@ -1,13 +1,15 @@
 class PlayListModel{
   int? id ;
   String? name;
-
+  int? exerciseid ;
   PlayListModel({
-    this.name
+    this.name,
+    this.exerciseid
 });
   PlayListModel.withid({
     this.id,
-    this.name
+    this.name,
+    this.exerciseid
   });
 
   Map<String,dynamic> toMap(){
@@ -17,6 +19,7 @@ class PlayListModel{
     }
 
     map['name'] = name;
+    map['exerciseid'] = exerciseid;
 
     return map;
   }
@@ -24,7 +27,8 @@ class PlayListModel{
   factory PlayListModel.fromMap(Map<String,dynamic> map){
      return PlayListModel.withid(
        id: map['id'],
-       name: map['name']
+       name: map['name'],
+         exerciseid: map['exerciseid']
      );
 
   }

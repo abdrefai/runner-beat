@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:runner_beat/models/Playlist.dart';
 import 'package:runner_beat/models/exercise.dart';
+import 'package:runner_beat/pages/ExerciseDetails.dart';
+import 'package:runner_beat/pages/PlayListDetails.dart';
 
 import 'package:runner_beat/pages/drawerPage.dart';
 import 'package:runner_beat/service/dataBaseHelper.dart';
@@ -17,7 +19,7 @@ class _homeState extends State<home> {
 
   double xOffset = 0;
   double yOffset = 0;
-  Icon drawerIcon =  Icon(Icons.menu,size: 30,color: Colors.grey,) ;
+  Icon drawerIcon =  Icon(Icons.menu,size: 30,color: Colors.white,) ;
 
 
   bool isDrawerOpen = false ;
@@ -51,23 +53,28 @@ class _homeState extends State<home> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width*0.5,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width*0.5,
-                  child: AutoSizeText(
-                    playListModel.name!,
-                    minFontSize: 22,
-                    maxFontSize: 25,
-                    style: TextStyle(color: Colors.white),
+          GestureDetector(
+            onTap: (){Navigator.push(context, MaterialPageRoute(builder:
+                (BuildContext context) => PlayListScreen(playListModel: playListModel,)
+            ));},
+            child: Container(
+              width: MediaQuery.of(context).size.width*0.5,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.5,
+                    child: AutoSizeText(
+                      playListModel.name!,
+                      minFontSize: 22,
+                      maxFontSize: 25,
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
-                ),
 
-              ],
+                ],
+              ),
             ),
           ),
 
@@ -83,10 +90,12 @@ class _homeState extends State<home> {
                   style: TextStyle(color: Colors.white),
 
                 ),
-                Icon(
-                  Icons.edit,
+                IconButton(
+                  icon: Icon(Icons.edit,color: Colors.grey,),
                   color: Colors.grey,
-                  size: 24,
+                 onPressed:(){
+                    _editplaylistName.text=playListModel.name!;
+                    _editPlaylistDialog(context,playListModel.id!);},
                 ),
                 Icon(
                   Icons.play_circle_fill,
@@ -108,23 +117,28 @@ class _homeState extends State<home> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width*0.5,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width*0.5,
-                  child: AutoSizeText(
-                    exerciseModel.name!,
-                    minFontSize: 22,
-                    maxFontSize: 25,
-                    style: TextStyle(color: Colors.white),
+          GestureDetector(
+            onTap: (){Navigator.push(context, MaterialPageRoute(builder:
+                (BuildContext context) => ExerciseScreen(exerciseModel: exerciseModel,)
+            ));},
+            child: Container(
+              width: MediaQuery.of(context).size.width*0.5,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.5,
+                    child: AutoSizeText(
+                      exerciseModel.name!,
+                      minFontSize: 22,
+                      maxFontSize: 25,
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
-                ),
 
-              ],
+                ],
+              ),
             ),
           ),
 
@@ -140,10 +154,13 @@ class _homeState extends State<home> {
                   style: TextStyle(color: Colors.white),
 
                 ),
-                Icon(
-                  Icons.edit,
+                IconButton(
+                  icon: Icon(Icons.edit,color: Colors.grey,),
                   color: Colors.grey,
-                  size: 24,
+                  onPressed:(){
+                    _exerciseName.text= exerciseModel.name!;
+                    _exerciseDesc.text= exerciseModel.description!;
+                    _editExerciseDialog(context,exerciseModel.id!);},
                 ),
                 Icon(
                   Icons.play_circle_fill,
@@ -180,7 +197,7 @@ class _homeState extends State<home> {
                                 xOffset = 280;
                                 yOffset = 80;
                                 isDrawerOpen = true;
-                                drawerIcon = Icon(Icons.arrow_back_outlined,size: 30,color: Colors.grey,);
+                                drawerIcon = Icon(Icons.arrow_back_outlined,size: 30,color: Colors.white,);
                                 });
                             }
                             else
@@ -188,7 +205,7 @@ class _homeState extends State<home> {
                                 xOffset = 0;
                                 yOffset = 0;
                                 isDrawerOpen = false;
-                                drawerIcon = Icon(Icons.menu,size: 30,color: Colors.grey,);
+                                drawerIcon = Icon(Icons.menu,size: 30,color: Colors.white,);
 
                               });
 
@@ -199,7 +216,7 @@ class _homeState extends State<home> {
                   ),
                   title: Image(
                     image: AssetImage('assets/images/logo.png',),
-                    width:60,
+                    width:70,
 
                   ),
                   actions: [
@@ -207,11 +224,11 @@ class _homeState extends State<home> {
                     PopupMenuButton<int>(color: Color.fromRGBO(39, 36, 53, 1),itemBuilder: (context)=>[
                        PopupMenuItem<int>(
                            value: 0,
-                           child: Text('add playlist', style: TextStyle(color: Colors.white))
+                           child: Text('add playlist', style: TextStyle(color: Colors.white,fontSize: 20))
                        ),
                       PopupMenuItem<int>(
                           value: 1,
-                          child: Text('add Exercise', style: TextStyle(color: Colors.white))
+                          child: Text('add Exercise', style: TextStyle(color: Colors.white,fontSize: 20))
                       )
                     ],
                       onSelected: (item)=>SelectedItem(context,item),
@@ -254,7 +271,7 @@ class _homeState extends State<home> {
                                 builder: (context ,AsyncSnapshot snapshot ){
                                   if(!snapshot.hasData){
                                     return Center(
-                                      child: CircularProgressIndicator(),
+                                      child: CircularProgressIndicator(color: Color.fromRGBO(3, 152, 158, 1)),
                                     );
                                   }
                                 return Padding(
@@ -275,7 +292,7 @@ class _homeState extends State<home> {
                                 builder: (context ,AsyncSnapshot snapshot ){
                                   if(!snapshot.hasData){
                                     return Center(
-                                      child: CircularProgressIndicator(),
+                                      child: CircularProgressIndicator(color: Color.fromRGBO(3, 152, 158, 1),),
                                     );
                                   }
                                   return Padding(
@@ -311,6 +328,9 @@ var _playlistName = TextEditingController();
 var _exerciseName = TextEditingController();
 var _exerciseDesc = TextEditingController();
 
+var _editplaylistName = TextEditingController();
+var _editexerciseName = TextEditingController();
+var _editexerciseDesc = TextEditingController();
 
 var _playList = PlayListModel();
 var _exercise = ExerciseModel();
@@ -320,9 +340,30 @@ _addplaylist(){
   DatabaseConnection.instance.insertPlaylist(playListModel);
 }
 
+_updateplaylist(id){
+  PlayListModel playListModel = PlayListModel(name: _playlistName.text);
+  DatabaseConnection.instance.updatePlaylist(playListModel,id);
+}
+
+_deleteplaylist(int id){
+
+  DatabaseConnection.instance.deletePlaylist(id);
+}
+
 _addexercise(){
   ExerciseModel exerciseModel = ExerciseModel(name: _exerciseName.text,description: _exerciseDesc.text);
   DatabaseConnection.instance.insertExercise(exerciseModel);
+}
+
+
+_updateExercise(id){
+
+  DatabaseConnection.instance.updateExercise(ExerciseModel(name: _exerciseName.text,description: _editexerciseDesc.text),id);
+}
+
+_deleteExercise(int id){
+
+  DatabaseConnection.instance.deleteExercise(id);
 }
 
 
@@ -375,7 +416,8 @@ _showExerciseDialog(BuildContext context){
           ));
         }, child: Text(
             "Add"
-        ))
+        )
+        )
       ],
       title: Text("Add Exercise"),
       content: SingleChildScrollView(
@@ -401,6 +443,109 @@ _showExerciseDialog(BuildContext context){
     );
   });
 }
+
+_editPlaylistDialog(BuildContext context, int id){
+
+    showDialog(context: context, barrierDismissible: true, builder: (param) {
+      return AlertDialog(
+        actions: [
+          FlatButton(onPressed: () {
+            _playlistName.text = _editplaylistName.text;
+            _updateplaylist(id);
+            _playlistName.text = "";
+            Navigator.pushReplacement(context, MaterialPageRoute(builder:
+                (BuildContext context) => home()
+            ));
+          }, child: Text(
+              "Edit"
+          )),
+          FlatButton(onPressed: () {
+
+            _deleteplaylist(id);
+            _playlistName.text = "";
+            Navigator.pushReplacement(context, MaterialPageRoute(builder:
+                (BuildContext context) => home()
+            ));
+          }, child: Text(
+            "Delete", style: TextStyle(color: Colors.red),
+          ))
+        ],
+        title: Text("Edit Playlist"),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: _editplaylistName,
+                decoration: InputDecoration(
+                    hintText: "type the name here",
+                    labelText: "Playlist Name"
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    }
+    );
+}
+_editExerciseDialog(BuildContext context, int id){
+  return showDialog(context : context , barrierDismissible: true,builder: (param){
+    return AlertDialog(
+      actions: [
+        FlatButton(onPressed: (){
+          _exercise.name = _exerciseName.text;
+          _exercise.description = _exerciseDesc.text;
+          _updateExercise(id);
+          _exerciseName.text= "";
+          _exerciseDesc.text= "";
+
+          Navigator.pushReplacement(context,MaterialPageRoute(builder:
+              (BuildContext context) => home()
+          ));
+        }, child: Text(
+            "Edit"
+        )),
+        FlatButton(onPressed: (){
+          _exercise.name = _exerciseName.text;
+          _exercise.description = _exerciseDesc.text;
+          _deleteExercise(id);
+          _exerciseName.text= "";
+          _exerciseDesc.text= "";
+
+          Navigator.pushReplacement(context,MaterialPageRoute(builder:
+              (BuildContext context) => home()
+          ));
+        }, child: Text(
+            "Delete",style: TextStyle(
+          color: Colors.red
+        ),
+        ))
+      ],
+      title: Text("Edit Exercise"),
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            TextField(
+              controller: _exerciseName,
+              decoration: InputDecoration(
+                  hintText: "type the name here",
+                  labelText: "Exercise Name"
+              ),
+            ),
+            TextField(
+              controller: _exerciseDesc,
+              decoration: InputDecoration(
+                  hintText: "type the name here",
+                  labelText: "Exercise Description"
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  });
+}
+
 SelectedItem(BuildContext context,  item) {
   switch(item){
     case 0:_showPlaylistDialog(context);

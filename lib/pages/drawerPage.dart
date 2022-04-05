@@ -1,7 +1,12 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:runner_beat/models/Playlist.dart';
+import 'package:runner_beat/models/exercise.dart';
+import 'package:runner_beat/pages/ConfigrationScreen.dart';
 import 'package:runner_beat/pages/ExerciseDetails.dart';
 import 'package:runner_beat/pages/PlayListDetails.dart';
 import 'package:runner_beat/pages/songsPlayer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class DrawerPage extends StatefulWidget {
@@ -10,6 +15,18 @@ class DrawerPage extends StatefulWidget {
 }
 
 class _DrawerState extends State<DrawerPage> {
+  late SharedPreferences preferences;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    init();
+  }
+
+  Future init() async {
+    preferences = await SharedPreferences.getInstance();
+  }
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -21,7 +38,7 @@ class _DrawerState extends State<DrawerPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
+             /* Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -33,26 +50,30 @@ class _DrawerState extends State<DrawerPage> {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 20,),
+              ),*/
+              SizedBox(height: 40,),
               Row(
                 children: [
-                  Text('username',style: TextStyle(fontSize: 25,color: Colors.white)),
+                  Text('Hello ${preferences.getString('name')??""}',style: TextStyle(fontSize: 25,color: Colors.white)),
                 ],
               ),
               Divider(),
-              SizedBox(height: 50,),
+              SizedBox(height: 10,),
               GestureDetector(
                  onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder:
-                      (BuildContext context) => PlayerScreen()
+                      (BuildContext context) =>ConfigrationScreen(username: preferences.getString("name")??"",
+                      GpsState: preferences.getBool("gps")??false,fileAccessState:preferences.getBool("fileaccess")??false ,
+                      userBirthdate:preferences.getString("birthdate")??"" ,userheight: preferences.getString("height")??"",
+                      userElength:preferences.getString("Elength")??"",usermetrics: preferences.getString("metrics")??"",
+                      userweight: preferences.getString("weight")??"",)
                   ));
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.play_circle_outline,color: Color.fromRGBO(3, 152, 158, 1)),
+                    Icon(Icons.settings,color: Color.fromRGBO(3, 152, 158, 1)),
                     SizedBox(width: 10,),
-                    Text('Media Player',style: TextStyle(fontSize: 25,color: Colors.white)),
+                    Text('Configration',style: TextStyle(fontSize: 25,color: Colors.white)),
                   ],
                 ),
               ),
@@ -62,7 +83,7 @@ class _DrawerState extends State<DrawerPage> {
               GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder:
-                      (BuildContext context) => PlayListScreen()
+                      (BuildContext context) => PlayListScreen(playListModel: PlayListModel(),)
                   ));
                 },
                 child: Row(
@@ -79,7 +100,7 @@ class _DrawerState extends State<DrawerPage> {
               GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder:
-                      (BuildContext context) => ExerciseScreen()
+                      (BuildContext context) => ExerciseScreen(exerciseModel: ExerciseModel(),)
                   ));
                 },
                 child: Row(
